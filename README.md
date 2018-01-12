@@ -1,14 +1,14 @@
 # Minimalistic Multiple Layer Neural Network from Scratch in Python
 * Author: Umberto Griffo
 
-Inspired by [1](https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/) and [2](https://github.com/pangolulu/neural-network-from-scratch) I implemented a **Minimalistic Multiple Layer Neural Network** from Scratch in Python.
+Inspired by <a href="https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/">[1]</a> and <a href="https://github.com/pangolulu/neural-network-from-scratch">[2]</a> I implemented a **Minimalistic Multiple Layer Neural Network** from Scratch in Python.
 You can use It to better understand the core concepts of Neural Network.
 
 ## Software Environment
 * Python 3.0 - 3.5
 
 ## Features
-- Backpropagation Algorithm With *Stochastic Gradient Descent*. During training we are using single training examples for one forward/backward pass.
+- Backpropagation Algorithm With **Stochastic Gradient Descent**. During training we are using single training examples for one forward/backward pass.
 - **Classification** (MultilayerNnClassifier.py).
 - **Regression** (MultilayerNnRegressor.py).
 - **Activation Function**: Linear, ReLU, Sigmoid, Tanh.
