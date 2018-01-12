@@ -18,6 +18,14 @@ def classificationSeed():
     '''
     Test Classification on Seeds dataset
     '''
+        
+    seed(1)
+    
+    n_folds = 5
+    l_rate = 0.3
+    n_epoch = 1000
+    n_hidden = 10
+    
     mlp = MultilayerNnClassifier();
     activationFunction = Sigmoid()
     dp = DataPreparation();
@@ -36,13 +44,20 @@ def classificationSeed():
     dp.normalize_dataset_classification(dataset, minmax)    
     # evaluate algorithm
     scores = evaluator.evaluate_algorithm(dataset, splitting, mlp.back_propagation, n_folds, l_rate, n_epoch, n_hidden, activationFunction)  
-    print('Scores: %s' % scores)
-    print('Mean Accuracy: %.3f%%' % (sum(scores) / float(len(scores))))   
+    print_classification_scores(scores) 
 
 def classificationWineRed():
     '''
     Test Classification on WineRed dataset
     '''
+        
+    seed(1)
+    
+    n_folds = 5
+    l_rate = 0.3
+    n_epoch = 1000
+    n_hidden = 10
+    
     mlp = MultilayerNnClassifier();
     activationFunction = Sigmoid()
     dp = DataPreparation();
@@ -62,13 +77,20 @@ def classificationWineRed():
     dp.normalize_dataset_classification(dataset, minmax)    
     # evaluate algorithm
     scores = evaluator.evaluate_algorithm(dataset, splitting, mlp.back_propagation, n_folds, l_rate, n_epoch, n_hidden, activationFunction)  
-    print('Scores: %s' % scores)
-    print('Mean Accuracy: %.3f%%' % (sum(scores) / float(len(scores))))   
+    print_classification_scores(scores)  
 
 def regressionWineRed():
     '''
     Test Regression on WineRed dataset
     '''
+        
+    seed(1)
+    
+    n_folds = 5
+    l_rate = 0.3
+    n_epoch = 1000
+    n_hidden = 10
+    
     mlp = MultilayerNnRegressor();
     activationFunction = Sigmoid()
     dp = DataPreparation();
@@ -86,22 +108,20 @@ def regressionWineRed():
     dp.normalize_dataset_regression(dataset, minmax)    
     # evaluate algorithm
     scores = evaluator.evaluate_algorithm(dataset, splitting, mlp.back_propagation, n_folds, target_minmax, l_rate, n_epoch, n_hidden, activationFunction, target_minmax) 
-    print('Scores: %s' % scores)
-    sum_mse = 0
-    sum_rmse = 0
-    sum_r2 = 0
-    for score in scores:
-        sum_mse += score[0]
-        sum_rmse += score[1]
-        sum_r2 += score[2]         
-    print('Mean MSE: %.3f' % (sum_mse / float(len(scores))))
-    print('Mean RMSE: %.3f' % (sum_rmse / float(len(scores))))
-    print('Mean R^2: %.3f' % (sum_r2 / float(len(scores)))) 
+    print_regression_scores(scores)
 
 def regressionWineWhite():
     '''
     Test Classification on WineWhite dataset
     '''
+        
+    seed(1)
+    
+    n_folds = 5
+    l_rate = 0.3
+    n_epoch = 1000
+    n_hidden = 10
+    
     mlp = MultilayerNnRegressor();
     activationFunction = Sigmoid()
     dp = DataPreparation();
@@ -119,6 +139,9 @@ def regressionWineWhite():
     dp.normalize_dataset_regression(dataset, minmax)    
     # evaluate algorithm
     scores = evaluator.evaluate_algorithm(dataset, splitting , mlp.back_propagation, n_folds, target_minmax, l_rate, n_epoch, n_hidden, activationFunction, target_minmax) 
+    print_regression_scores(scores)
+
+def print_regression_scores(scores):
     print('Scores: %s' % scores)
     sum_mse = 0
     sum_rmse = 0
@@ -131,16 +154,12 @@ def regressionWineWhite():
     print('Mean RMSE: %.3f' % (sum_rmse / float(len(scores))))
     print('Mean R^2: %.3f' % (sum_r2 / float(len(scores)))) 
 
+def print_classification_scores(scores):
+    print('Scores: %s' % scores)
+    print('Mean Accuracy: %.3f%%' % (sum(scores) / float(len(scores))))   
+        
 if __name__ == '__main__':
     
-    seed(1)
-    
-    n_folds = 5
-    l_rate = 0.3
-    n_epoch = 1000
-    n_hidden = 10
-    
-    # map the inputs to the function blocks
     options = {0 : classificationSeed,
            1 : classificationWineRed,
            2 : regressionWineRed,
@@ -149,7 +168,6 @@ if __name__ == '__main__':
     
     var = input("Please enter one of following numbers: \n 0 - Classification on Seed Dataset\n 1 - Classification on Wine Red Dataset\n 2 - Regression on Wine Red Dataset\n 3 - Regression on Wine White Dataset\n")
     print("You entered " + str(var))
-    if int(var) >= len(options):
-        raise Exception('You have to enter a number < ' +str(len(options)))
-    options[int(var)]()
-    
+    if int(var) >= len(options) or int(var) < 0:
+        raise Exception('You have entered an invalid number: ' +str(len(options)))
+    options[int(var)]()    
