@@ -9,6 +9,7 @@ You can use It to better understand the core concepts of Neural Networks.
 
 ## Features
 - Backpropagation Algorithm With **Stochastic Gradient Descent**. During training we are using single training examples for one forward/backward pass.
+- Supporting multiple hidden layers.
 - **Classification** (MultilayerNnClassifier.py).
 - **Regression** (MultilayerNnRegressor.py).
 - **Activation Function**: Linear, ReLU, Sigmoid, Tanh.
