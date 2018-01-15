@@ -19,7 +19,6 @@ You can use It to better understand the core concepts of Neural Networks.
 ## Possible Extensions:
 - **Early stopping**.
 - Experiment with different **weight initialization techniques** (such as small random numbers).
-- **More Layers**. Add support for more hidden layers.
 - **Batch Gradient Descent**. Change the training procedure from online to batch gradient descent 
   and update the weights only at the end of each epoch.
 - **Mini-Batch Gradient Descent**. More info [here](http://cs231n.github.io/optimization-1/#gd).
