@@ -26,7 +26,7 @@ Please enter one of following numbers:
  3 - Regression on Wine White Dataset
  4 - Regression on Wine Red Dataset 
 ```
-If you choose 2 wil be performed a classification task on Pokemon Dataset:
+If you choose 2 will be performed a classification task on Pokemon Dataset:
 ```
 2
 You entered 2
