@@ -11,7 +11,7 @@ from ml.activation.Tanh import Tanh
 
 class MultilayerNnClassifier:
     
-    def initialize_network(self, n_inputs, n_hidden, n_outputs):
+    def initialize_network_old(self, n_inputs, n_hidden, n_outputs):
         '''
         Initialize a new neural network ready for training. 
         It accepts three parameters, the number of inputs, the number of neurons 
@@ -22,6 +22,27 @@ class MultilayerNnClassifier:
         hidden_layer = [{'weights':[random() for i in range(n_inputs + 1)]} for i in range(n_hidden)]
         network.append(hidden_layer)
         output_layer = [{'weights':[random() for i in range(n_hidden + 1)]} for i in range(n_outputs)]
+        network.append(output_layer)
+        return network
+    
+    def initialize_network(self, n_inputs, n_hidden, n_outputs):
+        '''
+        Initialize a new neural network ready for training. 
+        It accepts three parameters, the number of inputs, the hidden layers and the number of outputs.
+        '''
+        network = list()
+        h = 0
+        for hidden in n_hidden:     
+            if(h==0):       
+                # hidden layer has 'hidden' neuron with 'n_inputs' input weights plus the bias
+                hidden_layer = [{'weights':[random() for i in range(n_inputs + 1)]} for i in range(hidden)]
+            else:
+                # hidden layer has 'hidden' neuron with 'hidden - 1' weights plus the bias
+                hidden_layer = [{'weights':[random() for i in range(n_hidden[h-1] + 1)]} for i in range(hidden)]
+            network.append(hidden_layer)
+            h += 1
+        # output layer has 'n_outputs' neuron with 'last hidden' weights plus the bias    
+        output_layer = [{'weights':[random() for i in range(n_hidden[-1] + 1)]} for i in range(n_outputs)]
         network.append(output_layer)
         return network
     
@@ -123,7 +144,7 @@ class MultilayerNnClassifier:
                 self.backward_propagate_error(network, activation_function, expected)
                 self.update_weights(network, row, l_rate)
             if (epoch % 100 == 0):    
-                print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
+                print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error/float(len(train))))
     
     def predict(self, network, activationFunction, row):
         '''
@@ -155,10 +176,10 @@ if __name__ == '__main__':
     seed(1)
     mlp = MultilayerNnClassifier()
     activationFunction = Tanh()
-    network = mlp.initialize_network(2, 1, 2)
+    network = mlp.initialize_network(2, [10,5], 2)
     for layer in network:
         print(layer)
-        
+       
     # Test forward_propagate
     print("Test Forward")
     row = [1, 0, None]
@@ -173,7 +194,7 @@ if __name__ == '__main__':
     mlp.backward_propagate_error(network, activationFunction, expected)
     for layer in network:
         print(layer)
-        
+      
     # Test training backprop algorithm
     print("Test training backprop algorithm")
     seed(1)
@@ -189,7 +210,7 @@ if __name__ == '__main__':
         [7.673756466, 3.508563011, 1]]
     n_inputs = len(dataset[0]) - 1
     n_outputs = len(set([row[-1] for row in dataset]))
-    network = mlp.initialize_network(n_inputs, 2, n_outputs)
+    network = mlp.initialize_network(n_inputs, [2], n_outputs)
     mlp.train_network(network, activationFunction, dataset, 0.5, 20, n_outputs)    
     for layer in network:
         print(layer)

@@ -11,7 +11,7 @@ from ml.activation.Linear import Linear
 
 class MultilayerNnRegressor:
     
-    def initialize_network(self, n_inputs, n_hidden, n_outputs):
+    def initialize_network_old(self, n_inputs, n_hidden, n_outputs):
         '''
         Initialize a new neural network ready for training. 
         It accepts three parameters, the number of inputs, the number of neurons 
@@ -22,6 +22,27 @@ class MultilayerNnRegressor:
         hidden_layer = [{'weights':[random() for i in range(n_inputs + 1)]} for i in range(n_hidden)]
         network.append(hidden_layer)
         output_layer = [{'weights':[random() for i in range(n_hidden + 1)]} for i in range(n_outputs)]
+        network.append(output_layer)
+        return network
+    
+    def initialize_network(self, n_inputs, n_hidden, n_outputs):
+        '''
+        Initialize a new neural network ready for training. 
+        It accepts three parameters, the number of inputs, the hidden layers and the number of outputs.
+        '''
+        network = list()
+        h = 0
+        for hidden in n_hidden:     
+            if(h==0):       
+                # hidden layer has 'hidden' neuron with 'n_inputs' input weights plus the bias
+                hidden_layer = [{'weights':[random() for i in range(n_inputs + 1)]} for i in range(hidden)]
+            else:
+                # hidden layer has 'hidden' neuron with 'hidden - 1' weights plus the bias
+                hidden_layer = [{'weights':[random() for i in range(n_hidden[h-1] + 1)]} for i in range(hidden)]
+            network.append(hidden_layer)
+            h += 1
+        # output layer has 'n_outputs' neuron with 'last hidden' weights plus the bias    
+        output_layer = [{'weights':[random() for i in range(n_hidden[-1] + 1)]} for i in range(n_outputs)]
         network.append(output_layer)
         return network
     

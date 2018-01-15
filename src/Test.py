@@ -24,7 +24,7 @@ def classificationSeed():
     n_folds = 5
     l_rate = 0.3
     n_epoch = 1000
-    n_hidden = 10
+    n_hidden = [10]
     
     mlp = MultilayerNnClassifier();
     activationFunction = Sigmoid()
@@ -56,7 +56,7 @@ def classificationWineRed():
     n_folds = 5
     l_rate = 0.3
     n_epoch = 1000
-    n_hidden = 10
+    n_hidden = [10]
     
     mlp = MultilayerNnClassifier();
     activationFunction = Sigmoid()
@@ -78,7 +78,46 @@ def classificationWineRed():
     # evaluate algorithm
     scores = evaluator.evaluate_algorithm(dataset, splitting, mlp.back_propagation, n_folds, l_rate, n_epoch, n_hidden, activationFunction)  
     print_classification_scores(scores)  
-
+    
+def classificationPokemon():
+    '''
+    Test Classification on Pokemon dataset
+    id_combat    pk1_ID    pk1_Name    pk1_Type1    pk1_Type2    pk1_HP    pk1_Attack    pk1_Defense    pk1_SpAtk
+    pk1_SpDef    pk1_Speed    pk1_Generation    pk1_Legendary    pk1_Grass    pk1_Fire    pk1_Water    pk1_Bug    
+    pk1_Normal    pk1_Poison    pk1_Electric    pk1_Ground    pk1_Fairy    pk1_Fighting    pk1_Psychic    pk1_Rock    
+    pk1_Ghost    pk1_Ice    pk1_Dragon    pk1_Dark    pk1_Steel    pk1_Flying    ID    pk2_Name    pk2_Type1    pk2_Type2    
+    pk2_HP    pk2_Attack    pk2_Defense    pk2_SpAtk    pk2_SpDef    pk2_Speed    pk2_Generation    pk2_Legendary    
+    pk2_Grass    pk2_Fire    pk2_Water    pk2_Bug    pk2_Normal    pk2_Poison    pk2_Electric    pk2_Ground    pk2_Fairy    
+    pk2_Fighting    pk2_Psychic    pk2_Rock    pk2_Ghost    pk2_Ice    pk2_Dragon    pk2_Dark    pk2_Steel    pk2_Flying    winner                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    '''
+        
+    seed(1)
+    
+    n_folds = 5
+    l_rate = 0.1
+    n_epoch = 500
+    n_hidden = [5]
+    
+    mlp = MultilayerNnClassifier();
+    activationFunction = Sigmoid()
+    dp = DataPreparation();
+    evaluator = ClassificationEvaluator();
+    splitting = Splitting();
+   
+    # load and prepare data
+    filename = '../Datasets/pkmn.csv'
+    dataset = dp.load_csv(filename)
+    for i in range(len(dataset[0]) - 1):
+        dp.str_column_to_float(dataset, i)
+    # convert class column to integers
+    dp.str_column_to_int(dataset, len(dataset[0]) - 1)
+    # normalize input variables
+    minmax = dp.dataset_minmax(dataset)
+    dp.normalize_dataset_classification(dataset, minmax)    
+    # evaluate algorithm
+    scores = evaluator.evaluate_algorithm(dataset, splitting, mlp.back_propagation, n_folds, l_rate, n_epoch, n_hidden, activationFunction)  
+    print_classification_scores(scores) 
+    
 def regressionWineRed():
     '''
     Test Regression on WineRed dataset
@@ -89,7 +128,7 @@ def regressionWineRed():
     n_folds = 5
     l_rate = 0.3
     n_epoch = 1000
-    n_hidden = 10
+    n_hidden = [20,10]
     
     mlp = MultilayerNnRegressor();
     activationFunction = Sigmoid()
@@ -120,7 +159,7 @@ def regressionWineWhite():
     n_folds = 5
     l_rate = 0.3
     n_epoch = 1000
-    n_hidden = 10
+    n_hidden = [10,5]
     
     mlp = MultilayerNnRegressor();
     activationFunction = Sigmoid()
@@ -160,13 +199,15 @@ def print_classification_scores(scores):
         
 if __name__ == '__main__':
     
-    options = {0 : classificationSeed,
+    options = {
+           0 : classificationSeed,
            1 : classificationWineRed,
-           2 : regressionWineRed,
-           3 : regressionWineWhite
+           2 : classificationPokemon,
+           3 : regressionWineRed,
+           4 : regressionWineWhite
            }
     
-    var = input("Please enter one of following numbers: \n 0 - Classification on Seed Dataset\n 1 - Classification on Wine Red Dataset\n 2 - Regression on Wine Red Dataset\n 3 - Regression on Wine White Dataset\n")
+    var = input("Please enter one of following numbers: \n 0 - Classification on Seed Dataset\n 1 - Classification on Wine Red Dataset\n 2 - Classification on Pokemon Dataset\n 3 - Regression on Wine White Dataset\n 4 - Regression on Wine Red Dataset \n")
     print("You entered " + str(var))
     if int(var) >= len(options) or int(var) < 0:
         raise Exception('You have entered an invalid number: ' +str(len(options)))
