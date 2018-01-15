@@ -16,6 +16,59 @@ You can use It to better understand the core concepts of Neural Networks.
 - **Classification Evaluator**: Accuracy.
 - **Regression Evaluator**: Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Coefficient of Determination (R^2).
 
+## Demo
+If you run Test.py you can see the following textual menu:
+```
+Please enter one of following numbers: 
+ 0 - Classification on Seed Dataset
+ 1 - Classification on Wine Red Dataset
+ 2 - Classification on Pokemon Dataset
+ 3 - Regression on Wine White Dataset
+ 4 - Regression on Wine Red Dataset 
+```
+If you choose 2 wil be performed a classification task on Pokemon Dataset:
+```
+2
+You entered 2
+>epoch=0, lrate=0.100, error=0.396
+>epoch=100, lrate=0.100, error=0.087
+>epoch=200, lrate=0.100, error=0.083
+>epoch=300, lrate=0.100, error=0.081
+>epoch=400, lrate=0.100, error=0.081
+>epoch=500, lrate=0.100, error=0.080
+>accuracy=95.450
+>epoch=0, lrate=0.100, error=0.353
+>epoch=100, lrate=0.100, error=0.092
+>epoch=200, lrate=0.100, error=0.085
+>epoch=300, lrate=0.100, error=0.083
+>epoch=400, lrate=0.100, error=0.082
+>epoch=500, lrate=0.100, error=0.081
+>accuracy=95.400
+>epoch=0, lrate=0.100, error=0.415
+>epoch=100, lrate=0.100, error=0.087
+>epoch=200, lrate=0.100, error=0.083
+>epoch=300, lrate=0.100, error=0.082
+>epoch=400, lrate=0.100, error=0.081
+>epoch=500, lrate=0.100, error=0.080
+>accuracy=95.520
+>epoch=0, lrate=0.100, error=0.401
+>epoch=100, lrate=0.100, error=0.089
+>epoch=200, lrate=0.100, error=0.084
+>epoch=300, lrate=0.100, error=0.083
+>epoch=400, lrate=0.100, error=0.082
+>epoch=500, lrate=0.100, error=0.081
+>accuracy=95.280
+>epoch=0, lrate=0.100, error=0.395
+>epoch=100, lrate=0.100, error=0.093
+>epoch=200, lrate=0.100, error=0.087
+>epoch=300, lrate=0.100, error=0.085
+>epoch=400, lrate=0.100, error=0.084
+>epoch=500, lrate=0.100, error=0.083
+>accuracy=94.900
+Scores: [95.45, 95.39999999999999, 95.52000000000001, 95.28, 94.89999999999999]
+Mean Accuracy: 95.310%
+```
+
 ## Possible Extensions:
 - **Early stopping**.
 - Experiment with different **weight initialization techniques** (such as small random numbers).
