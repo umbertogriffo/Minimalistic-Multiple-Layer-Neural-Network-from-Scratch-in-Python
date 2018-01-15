@@ -59,7 +59,8 @@ class RegressionEvaluator:
                 row_copy = list(row)
                 test_set.append(row_copy)
                 row_copy[-1] = None
-                
+            print('>train size=%d' % (len(train_set.size)))
+            print('>test size=%d' % (len(test_set)))       
             predicted = algorithm(train_set, test_set, *args)
             # Rescale the predictions
             self.denormalize_target(predicted, minmax)

@@ -31,8 +31,11 @@ class ClassificationEvaluator:
                 row_copy = list(row)
                 test_set.append(row_copy)
                 row_copy[-1] = None
+            print('>train size=%d' % (len(train_set.size)))
+            print('>test size=%d' % (len(test_set)))    
             predicted = algorithm(train_set, test_set, *args)
             actual = [row[-1] for row in fold]
             accuracy = self.accuracy_metric(actual, predicted)
+            print('>accuracy=%.3f' % (accuracy))
             scores.append(accuracy)
         return scores   
